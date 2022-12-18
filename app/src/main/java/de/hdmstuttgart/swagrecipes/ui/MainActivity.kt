@@ -1,4 +1,4 @@
-package de.hdmstuttgart.swagrecipes
+package de.hdmstuttgart.swagrecipes.ui
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
@@ -18,6 +18,7 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.view.animation.DecelerateInterpolator
 import androidx.core.animation.doOnEnd
+import de.hdmstuttgart.swagrecipes.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         setupSplashScreen(splashScreen)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)

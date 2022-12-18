@@ -1,4 +1,4 @@
-package de.hdmstuttgart.swagrecipes
+package de.hdmstuttgart.swagrecipes.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import de.hdmstuttgart.swagrecipes.R
 import de.hdmstuttgart.swagrecipes.databinding.FragmentSecondBinding
 
 /**
