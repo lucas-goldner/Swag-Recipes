@@ -19,6 +19,9 @@ import android.view.ViewTreeObserver
 import android.view.animation.DecelerateInterpolator
 import androidx.core.animation.doOnEnd
 import de.hdmstuttgart.swagrecipes.R
+import de.hdmstuttgart.swagrecipes.SwagRecipesApplication
+import de.hdmstuttgart.swagrecipes.di.component.DaggerActivityComponent
+import de.hdmstuttgart.swagrecipes.di.module.ActivityModule
 
 class MainActivity : AppCompatActivity() {
 
@@ -95,5 +98,14 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    private fun injectDependencies() {
+        DaggerActivityComponent
+            .builder()
+            .applicationComponent((application as SwagRecipesApplication).applicationComponent)
+            .activityModule(ActivityModule(this))
+            .build()
+            .inject(this)
     }
 }
