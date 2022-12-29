@@ -17,5 +17,5 @@ interface NetworkService {
 
     @Headers("x-api-key: $API_KEY")
     @GET("recipes/random")
-    suspend fun getRandomRecipes(): RandomRecipesResponse
+    suspend fun getRandomRecipes(@Query("number") number: Int = 5): RandomRecipesResponse
 }
