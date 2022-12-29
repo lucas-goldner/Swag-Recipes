@@ -99,13 +99,4 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
-
-    private fun injectDependencies() {
-        DaggerActivityComponent
-            .builder()
-            .applicationComponent((application as SwagRecipesApplication).applicationComponent)
-            .activityModule(ActivityModule(this))
-            .build()
-            .inject(this)
-    }
 }
