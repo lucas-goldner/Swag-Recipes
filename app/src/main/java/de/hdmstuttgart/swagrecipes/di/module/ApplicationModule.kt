@@ -22,7 +22,7 @@ class ApplicationModule(private val application: SwagRecipesApplication) {
 
     @BaseUrl
     @Provides
-    fun provideBaseUrl(): String = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/"
+    fun provideBaseUrl(): String = "https://api.spoonacular.com/"
 
     @Provides
     @Singleton

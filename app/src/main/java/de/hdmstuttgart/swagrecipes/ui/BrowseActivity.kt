@@ -2,6 +2,8 @@ package de.hdmstuttgart.swagrecipes.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.util.Log.INFO
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle
@@ -19,6 +21,7 @@ import de.hdmstuttgart.swagrecipes.ui.browse.BrowseRecipeAdapter
 import de.hdmstuttgart.swagrecipes.ui.browse.BrowseRecipeViewModel
 import de.hdmstuttgart.swagrecipes.utils.Status
 import kotlinx.coroutines.launch
+import java.util.logging.Level.INFO
 import javax.inject.Inject
 
 class BrowseActivity : AppCompatActivity() {
@@ -68,6 +71,8 @@ class BrowseActivity : AppCompatActivity() {
                         }
                         Status.ERROR -> {
                             //Handle Error
+                            Log.d("Tag", "HEY FEEEHLLLERRR")
+                            it.message?.let { it1 -> Log.d("Tag", it1) }
                             binding.progressBar.visibility = View.GONE
                             Toast.makeText(this@BrowseActivity, it.message, Toast.LENGTH_LONG)
                                 .show()

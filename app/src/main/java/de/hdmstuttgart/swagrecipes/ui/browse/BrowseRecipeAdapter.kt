@@ -15,7 +15,7 @@ class BrowseRecipeAdapter (
         RecyclerView.ViewHolder(binding.root) {
         fun bind(recipe: Recipe) {
             binding.title.text = recipe.title
-            binding.ingredients.text = recipe.ingredients.joinToString(separator = ", ")
+            binding.ingredients.text = recipe.ingredients.joinToString(separator = ", ") { it.name }
 
             // Glide.with(binding.imageViewBanner.context)
             //    .load(article.imageUrl)
