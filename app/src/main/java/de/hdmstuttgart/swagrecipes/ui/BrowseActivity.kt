@@ -71,8 +71,6 @@ class BrowseActivity : AppCompatActivity() {
                         }
                         Status.ERROR -> {
                             //Handle Error
-                            Log.d("Tag", "HEY FEEEHLLLERRR")
-                            it.message?.let { it1 -> Log.d("Tag", it1) }
                             binding.progressBar.visibility = View.GONE
                             Toast.makeText(this@BrowseActivity, it.message, Toast.LENGTH_LONG)
                                 .show()
