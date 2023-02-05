@@ -3,9 +3,9 @@ package de.hdmstuttgart.swagrecipes.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.util.Log.INFO
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -15,26 +15,24 @@ import de.hdmstuttgart.swagrecipes.R
 import de.hdmstuttgart.swagrecipes.SwagRecipesApplication
 import de.hdmstuttgart.swagrecipes.data.model.recipe.Recipe
 import de.hdmstuttgart.swagrecipes.databinding.ActivityBrowseBinding
-import de.hdmstuttgart.swagrecipes.di.component.DaggerActivityComponent
-import de.hdmstuttgart.swagrecipes.di.module.ActivityModule
+import de.hdmstuttgart.swagrecipes.providers.ViewModelProviderFactory
 import de.hdmstuttgart.swagrecipes.ui.browse.BrowseRecipeAdapter
 import de.hdmstuttgart.swagrecipes.ui.browse.BrowseRecipeViewModel
 import de.hdmstuttgart.swagrecipes.utils.Status
 import kotlinx.coroutines.launch
-import java.util.logging.Level.INFO
-import javax.inject.Inject
 
 class BrowseActivity : AppCompatActivity() {
-    @Inject
-    lateinit var browseRecipeViewModel: BrowseRecipeViewModel
-
-    @Inject
-    lateinit var adapter: BrowseRecipeAdapter
-
+    var adapter: BrowseRecipeAdapter = BrowseRecipeAdapter(ArrayList())
     private lateinit var binding: ActivityBrowseBinding
+    private val browseRecipeViewModel by viewModels<BrowseRecipeViewModel> {
+        ViewModelProviderFactory(BrowseRecipeViewModel::class) {
+            BrowseRecipeViewModel(
+                (application as SwagRecipesApplication).randomRecipeRepository
+            )
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse)
         binding = ActivityBrowseBinding.inflate(layoutInflater)
@@ -84,14 +82,5 @@ class BrowseActivity : AppCompatActivity() {
     private fun renderList(articleList: List<Recipe>) {
         adapter.addData(articleList)
         adapter.notifyDataSetChanged()
-    }
-
-    private fun injectDependencies() {
-        DaggerActivityComponent
-            .builder()
-            .applicationComponent((application as SwagRecipesApplication).applicationComponent)
-            .activityModule(ActivityModule(this))
-            .build()
-            .inject(this)
     }
 }
