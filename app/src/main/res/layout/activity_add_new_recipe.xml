@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.AddNewRecipeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="8dp">
+        <EditText
+            android:id="@+id/titleInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Meal Name"
+            android:layout_margin="16dp"
+            android:layout_weight="1"/>
+        <CheckBox
+            android:id="@+id/isHealthyInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Healthy"
+            android:layout_margin="0dp"
+            android:layout_gravity="center"/>
+
+        <CheckBox
+            android:id="@+id/isCheapInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cheap"
+            android:layout_margin="0dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/readyInMinutesInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Ready in Minutes"
+                android:inputType="number"
+                android:layout_margin="16dp"
+                android:layout_weight="0.5"/>
+            <EditText
+                android:id="@+id/servingsInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Servings"
+                android:inputType="number"
+                android:layout_margin="16dp"
+                android:layout_weight="0.5"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/instructionsInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Instructions"
+            android:layout_margin="16dp" />
+
+        <LinearLayout
+            android:id="@+id/ingredientsLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/ingredientInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Ingredient Name"
+                android:layout_margin="16dp"
+                android:layout_weight="1"/>
+            <EditText
+                android:id="@+id/ingredientAmountInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Amount"
+                android:inputType="number"
+                android:layout_margin="16dp"
+                android:layout_weight="0.25"/>
+            <EditText
+                android:id="@+id/ingredientUnitInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Unit"
+                android:inputType="number"
+                android:layout_margin="16dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/addMoreIngredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Ingredient"
+            android:onClick="addInputFields"/>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="8dp">
+        <CheckBox
+            android:id="@+id/vegetarianCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vegetarian"
+            android:layout_margin="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/veganCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vegan"
+            android:layout_margin="0dp"
+            tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="8dp">
+            <CheckBox
+                android:id="@+id/dairyFreeCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dairy Free"
+                android:layout_margin="0dp"
+                tools:ignore="MissingConstraints" />
+
+            <CheckBox
+                android:id="@+id/glutenFreeCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gluten Free"
+                android:layout_margin="0dp"
+                tools:ignore="MissingConstraints" />
+            <CheckBox
+                android:id="@+id/ketogenic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ketogenic"
+                android:layout_margin="0dp"
+                tools:ignore="MissingConstraints" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/doneButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

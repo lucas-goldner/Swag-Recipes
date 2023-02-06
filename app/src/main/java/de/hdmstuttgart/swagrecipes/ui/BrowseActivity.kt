@@ -1,5 +1,6 @@
 package de.hdmstuttgart.swagrecipes.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -52,7 +53,15 @@ class BrowseActivity : AppCompatActivity() {
                 (recyclerView.layoutManager as LinearLayoutManager).orientation
             )
         )
+        adapter.onItemClick = { recipe ->
+            openRecipeDetails(recipe)
+        }
         recyclerView.adapter = adapter
+
+        binding.addNewRecipeButton.setOnClickListener {
+            val intent = Intent(this, AddNewRecipeActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupObserver() {
@@ -64,10 +73,14 @@ class BrowseActivity : AppCompatActivity() {
                             binding.progressBar.visibility = View.GONE
                             it.data?.let { articleList -> renderList(articleList) }
                             binding.recyclerView.visibility = View.VISIBLE
+                            binding.addNewRecipeButton.visibility = View.VISIBLE
+
                         }
                         Status.LOADING -> {
                             binding.progressBar.visibility = View.VISIBLE
                             binding.recyclerView.visibility = View.GONE
+                            binding.addNewRecipeButton.visibility = View.GONE
+
                         }
                         Status.ERROR -> {
                             //Handle Error
@@ -93,5 +106,11 @@ class BrowseActivity : AppCompatActivity() {
             .activityModule(ActivityModule(this))
             .build()
             .inject(this)
+    }
+
+    private fun openRecipeDetails(recipe: Recipe) {
+        val intent = Intent(this,RecipeDetailActivity::class.java)
+        intent.putExtra("recipe",recipe)
+        startActivity(intent)
     }
 }
