@@ -3,6 +3,7 @@ package de.hdmstuttgart.swagrecipes.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.util.Log.INFO
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -20,6 +21,8 @@ import de.hdmstuttgart.swagrecipes.ui.browse.BrowseRecipeAdapter
 import de.hdmstuttgart.swagrecipes.ui.browse.BrowseRecipeViewModel
 import de.hdmstuttgart.swagrecipes.utils.Status
 import kotlinx.coroutines.launch
+import java.util.logging.Level.INFO
+import javax.inject.Inject
 
 class BrowseActivity : AppCompatActivity() {
     var adapter: BrowseRecipeAdapter = BrowseRecipeAdapter(ArrayList())
@@ -33,6 +36,7 @@ class BrowseActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injectDependencies()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse)
         binding = ActivityBrowseBinding.inflate(layoutInflater)
@@ -50,7 +54,15 @@ class BrowseActivity : AppCompatActivity() {
                 (recyclerView.layoutManager as LinearLayoutManager).orientation
             )
         )
+        adapter.onItemClick = { recipe ->
+            openRecipeDetails(recipe)
+        }
         recyclerView.adapter = adapter
+
+        binding.addNewRecipeButton.setOnClickListener {
+            val intent = Intent(this, AddNewRecipeActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupObserver() {
@@ -62,10 +74,14 @@ class BrowseActivity : AppCompatActivity() {
                             binding.progressBar.visibility = View.GONE
                             it.data?.let { articleList -> renderList(articleList) }
                             binding.recyclerView.visibility = View.VISIBLE
+                            binding.addNewRecipeButton.visibility = View.VISIBLE
+
                         }
                         Status.LOADING -> {
                             binding.progressBar.visibility = View.VISIBLE
                             binding.recyclerView.visibility = View.GONE
+                            binding.addNewRecipeButton.visibility = View.GONE
+
                         }
                         Status.ERROR -> {
                             //Handle Error
@@ -82,5 +98,14 @@ class BrowseActivity : AppCompatActivity() {
     private fun renderList(articleList: List<Recipe>) {
         adapter.addData(articleList)
         adapter.notifyDataSetChanged()
+    }
+
+    private fun injectDependencies() {
+        DaggerActivityComponent
+            .builder()
+            .applicationComponent((application as SwagRecipesApplication).applicationComponent)
+            .activityModule(ActivityModule(this))
+            .build()
+            .inject(this)
     }
 }
