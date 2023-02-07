@@ -1,6 +1,5 @@
 package de.hdmstuttgart.swagrecipes.data.model.recipe
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import de.hdmstuttgart.swagrecipes.data.model.ingredient.Ingredient
@@ -10,7 +9,7 @@ data class Recipe(
     @PrimaryKey val id: String,
     val title: String,
     val ingredients: List<Ingredient>,
-    val imageURL: String,
+    val imageURL: String?,
     val instructions: String,
     val readyInMinutes: Int,
     val vegetarian: Boolean,

@@ -1,9 +1,9 @@
 package de.hdmstuttgart.swagrecipes.ui
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.animation.DecelerateInterpolator
@@ -11,35 +11,25 @@ import androidx.activity.viewModels
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.fragment.app.viewModels
 import de.hdmstuttgart.swagrecipes.R
 import de.hdmstuttgart.swagrecipes.SwagRecipesApplication
-import de.hdmstuttgart.swagrecipes.data.RecipeRoomDatabase
-import de.hdmstuttgart.swagrecipes.data.model.ingredient.Ingredient
-import de.hdmstuttgart.swagrecipes.data.model.recipe.Recipe
-import de.hdmstuttgart.swagrecipes.data.repository.SavedRecipesRepository
 import de.hdmstuttgart.swagrecipes.ui.collection.CollectionViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.asFlow
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import de.hdmstuttgart.swagrecipes.data.api.DBService
-import de.hdmstuttgart.swagrecipes.databinding.ActivityBrowseBinding
 import de.hdmstuttgart.swagrecipes.databinding.ActivityCollectionBinding
-import de.hdmstuttgart.swagrecipes.ui.browse.BrowseRecipeAdapter
+import de.hdmstuttgart.swagrecipes.providers.ViewModelProviderFactory
 import de.hdmstuttgart.swagrecipes.ui.collection.CollectionAdapter
 
 class CollectionActivity : AppCompatActivity() {
     private var contentHasLoaded = false
     private lateinit var binding: ActivityCollectionBinding
     lateinit var adapter: CollectionAdapter
-    private val collectionViewModel by viewModels<CollectionViewModel> { ViewModelProviderFactory(CollectionViewModel::class) {
-        CollectionViewModel(
-            (application as SwagRecipesApplication).repository
-        )
-    }
+    private val collectionViewModel by viewModels<CollectionViewModel> {
+        ViewModelProviderFactory(CollectionViewModel::class) {
+            CollectionViewModel(
+                (application as SwagRecipesApplication).savedRecipesRepository
+            )
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +50,10 @@ class CollectionActivity : AppCompatActivity() {
 
 
     private fun setupUI() {
+        val searchForMoreButton = binding.floatingActionButton
+        searchForMoreButton.setOnClickListener {
+            navigateToBrowseActivity()
+        }
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(
@@ -69,6 +63,11 @@ class CollectionActivity : AppCompatActivity() {
             )
         )
         recyclerView.adapter = adapter
+    }
+
+    private fun navigateToBrowseActivity() {
+        val browseIntent = Intent(this, BrowseActivity::class.java)
+        startActivity(browseIntent)
     }
 
     private fun setupSplashScreen(splashScreen: SplashScreen) {

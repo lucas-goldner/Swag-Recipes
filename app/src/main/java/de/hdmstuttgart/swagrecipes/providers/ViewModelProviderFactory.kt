@@ -1,4 +1,4 @@
-package de.hdmstuttgart.swagrecipes.ui
+package de.hdmstuttgart.swagrecipes.providers
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
