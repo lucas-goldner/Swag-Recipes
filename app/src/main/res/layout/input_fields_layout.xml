@@ -15,26 +15,37 @@
             android:id="@+id/ingredientInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Ingredient Name"
-            android:inputType="number"
             android:layout_margin="16dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:hint="@string/ingredient_name"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColorHint="#8D6E63"
+            android:importantForAutofill="no" />
+
         <EditText
             android:id="@+id/ingredientAmountInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Amount"
-            android:inputType="number"
             android:layout_margin="16dp"
-            android:layout_weight="0.25"/>
+            android:layout_weight="0.25"
+            android:hint="@string/amount"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColorHint="#8D6E63"
+            android:importantForAutofill="no" />
+
         <EditText
             android:id="@+id/ingredientUnitInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Unit"
-            android:inputType="number"
             android:layout_margin="16dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:hint="@string/unit"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColorHint="#8D6E63"
+            android:importantForAutofill="no" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package de.hdmstuttgart.swagrecipes.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -36,7 +37,6 @@ class BrowseActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_browse)
         binding = ActivityBrowseBinding.inflate(layoutInflater)
@@ -63,6 +63,12 @@ class BrowseActivity : AppCompatActivity() {
             val intent = Intent(this, AddNewRecipeActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun openRecipeDetails(recipe: Recipe) {
+        val intent = Intent(this, RecipeDetailActivity::class.java)
+        intent.putExtra("recipe", recipe)
+        startActivity(intent)
     }
 
     private fun setupObserver() {
@@ -98,14 +104,5 @@ class BrowseActivity : AppCompatActivity() {
     private fun renderList(articleList: List<Recipe>) {
         adapter.addData(articleList)
         adapter.notifyDataSetChanged()
-    }
-
-    private fun injectDependencies() {
-        DaggerActivityComponent
-            .builder()
-            .applicationComponent((application as SwagRecipesApplication).applicationComponent)
-            .activityModule(ActivityModule(this))
-            .build()
-            .inject(this)
     }
 }
