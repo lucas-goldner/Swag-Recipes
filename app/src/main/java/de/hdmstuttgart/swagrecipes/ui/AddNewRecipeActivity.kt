@@ -4,20 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet.Constraint
-import androidx.recyclerview.widget.GridLayoutManager
-import de.hdmstuttgart.swagrecipes.R
+import de.hdmstuttgart.swagrecipes.SwagRecipesApplication
 import de.hdmstuttgart.swagrecipes.data.model.ingredient.Ingredient
 import de.hdmstuttgart.swagrecipes.data.model.recipe.Recipe
 import de.hdmstuttgart.swagrecipes.databinding.ActivityAddNewRecipeBinding
-import de.hdmstuttgart.swagrecipes.ui.detail.RecipeDetailAdapter
+import de.hdmstuttgart.swagrecipes.providers.ViewModelProviderFactory
+import de.hdmstuttgart.swagrecipes.ui.addnew.AddNewRecipeViewModel
+import de.hdmstuttgart.swagrecipes.ui.collection.CollectionViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,6 +30,14 @@ class AddNewRecipeActivity : AppCompatActivity() {
     lateinit var userRecipes: ArrayList<Recipe>
 
     private lateinit var binding: ActivityAddNewRecipeBinding
+
+    private val addNewRecipeViewModel by viewModels<AddNewRecipeViewModel> {
+        ViewModelProviderFactory(AddNewRecipeViewModel::class) {
+            AddNewRecipeViewModel(
+                (application as SwagRecipesApplication).savedRecipesRepository
+            )
+        }
+    }
 
     // Input Fields/Checkboxes
     private lateinit var titleInput: EditText
@@ -50,8 +57,6 @@ class AddNewRecipeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddNewRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        userRecipes = ArrayList<Recipe>()
 
         // Binding Input Fields/Checkboxes
         titleInput = binding.titleInput
@@ -91,21 +96,11 @@ class AddNewRecipeActivity : AppCompatActivity() {
                 ketogenic = ketogenicCheckbox.isChecked,
                 servings = servingsInput.text.toString().toInt()
                 )
-            // Add Recipe to List
-            userRecipes.add(recipe)
 
-            // Go back to BrowsePage
-            val intent = Intent(this, BrowseActivity::class.java)
-            startActivity(intent)
+            addNewRecipeViewModel.insert(recipe)
 
-            // Show all Recipes in Console
-            for ((index,recipe) in userRecipes.withIndex()){
-                Log.d("RecipeNumber", "Number: $index")
-                Log.d("RecipeName", recipe.title)
-                Log.d("RecipeInstructions", recipe.instructions)
-                Log.d("RecipeIngredients", recipe.ingredients.toString())
-
-            }
+            // Go back to CollectionPage
+            finish()
         }
     }
 

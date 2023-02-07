@@ -40,7 +40,6 @@ class CollectionActivity : AppCompatActivity() {
         collectionViewModel.allRecipes.observe(this) { recipes ->
             recipes?.let { adapter.submitList(it) }
         }
-        // TODO: Load data before setup
         contentHasLoaded = true
         setupSplashScreen(splashScreen)
         binding = ActivityCollectionBinding.inflate(layoutInflater)
@@ -50,7 +49,7 @@ class CollectionActivity : AppCompatActivity() {
 
 
     private fun setupUI() {
-        val searchForMoreButton = binding.floatingActionButton
+        val searchForMoreButton = binding.floatingActionButtonBrowseRecipe
         searchForMoreButton.setOnClickListener {
             navigateToBrowseActivity()
         }
@@ -63,6 +62,14 @@ class CollectionActivity : AppCompatActivity() {
             )
         )
         recyclerView.adapter = adapter
+        binding.floatingActionButtonAddRecipe.setOnClickListener {
+            navigateToAddNewRecipeActivity()
+        }
+    }
+
+    private fun navigateToAddNewRecipeActivity() {
+        val intent = Intent(this, AddNewRecipeActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToBrowseActivity() {

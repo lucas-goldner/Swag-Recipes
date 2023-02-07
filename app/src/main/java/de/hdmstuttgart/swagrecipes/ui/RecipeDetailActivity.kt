@@ -1,18 +1,12 @@
 package de.hdmstuttgart.swagrecipes.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import de.hdmstuttgart.swagrecipes.R
 import de.hdmstuttgart.swagrecipes.data.model.recipe.Recipe
-import de.hdmstuttgart.swagrecipes.databinding.ActivityBrowseBinding
 import de.hdmstuttgart.swagrecipes.databinding.ActivityRecipeDetailBinding
 import de.hdmstuttgart.swagrecipes.ui.detail.RecipeDetailAdapter
 
@@ -68,8 +62,6 @@ class RecipeDetailActivity : AppCompatActivity() {
             binding.glutenFreeCheckbox.isChecked = recipe.glutenFree
             binding.dairyFreeCheckbox.isChecked = recipe.dairyFree
             binding.ketogenic.isChecked = recipe.ketogenic
-
-
         }
     }
 

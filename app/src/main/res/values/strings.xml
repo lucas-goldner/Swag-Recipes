@@ -29,4 +29,5 @@
     <string name="amount">Amount</string>
     <string name="unit">Unit</string>
     <string name="ingredient_name">Ingredient Name</string>
+    <string name="add_new_recipe">Add New Recipe</string>
 </resources>

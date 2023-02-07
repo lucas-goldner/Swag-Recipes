@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.util.Log.INFO
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -22,11 +21,9 @@ import de.hdmstuttgart.swagrecipes.ui.browse.BrowseRecipeAdapter
 import de.hdmstuttgart.swagrecipes.ui.browse.BrowseRecipeViewModel
 import de.hdmstuttgart.swagrecipes.utils.Status
 import kotlinx.coroutines.launch
-import java.util.logging.Level.INFO
-import javax.inject.Inject
 
 class BrowseActivity : AppCompatActivity() {
-    var adapter: BrowseRecipeAdapter = BrowseRecipeAdapter(ArrayList())
+    private var adapter: BrowseRecipeAdapter = BrowseRecipeAdapter(ArrayList())
     private lateinit var binding: ActivityBrowseBinding
     private val browseRecipeViewModel by viewModels<BrowseRecipeViewModel> {
         ViewModelProviderFactory(BrowseRecipeViewModel::class) {
@@ -58,11 +55,6 @@ class BrowseActivity : AppCompatActivity() {
             openRecipeDetails(recipe)
         }
         recyclerView.adapter = adapter
-
-        binding.addNewRecipeButton.setOnClickListener {
-            val intent = Intent(this, AddNewRecipeActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun openRecipeDetails(recipe: Recipe) {
@@ -80,19 +72,16 @@ class BrowseActivity : AppCompatActivity() {
                             binding.progressBar.visibility = View.GONE
                             it.data?.let { articleList -> renderList(articleList) }
                             binding.recyclerView.visibility = View.VISIBLE
-                            binding.addNewRecipeButton.visibility = View.VISIBLE
 
                         }
                         Status.LOADING -> {
                             binding.progressBar.visibility = View.VISIBLE
                             binding.recyclerView.visibility = View.GONE
-                            binding.addNewRecipeButton.visibility = View.GONE
-
                         }
                         Status.ERROR -> {
-                            //Handle Error
+                            Log.e("API-CALL-ERROR", "Error while calling API due to:" + it.message)
                             binding.progressBar.visibility = View.GONE
-                            Toast.makeText(this@BrowseActivity, it.message, Toast.LENGTH_LONG)
+                            Toast.makeText(this@BrowseActivity, "A small issue occurred, sorry for the inconvenience", Toast.LENGTH_LONG)
                                 .show()
                         }
                     }
