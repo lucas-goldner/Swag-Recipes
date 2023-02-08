@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.AddNewRecipeActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/mealNameInput"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:hint="@string/meal_name"
+                    android:minHeight="48dp"
+                    android:textColorHint="#8D6E63"
+                    android:importantForAutofill="no"
+                    android:inputType="text"/>
+
+                <CheckBox
+                    android:id="@+id/isHealthyInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="0dp"
+                    android:text="@string/healthy" />
+
+                <CheckBox
+                    android:id="@+id/isCheapInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="0dp"
+                    android:text="@string/cheap" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/readyInMinutesInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="0.5"
+                    android:hint="@string/ready_in_minutes"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    android:textColorHint="#8D6E63"
+                    android:importantForAutofill="no" />
+
+                <EditText
+                    android:id="@+id/servingsInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="0.5"
+                    android:hint="@string/servings"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    android:textColorHint="#8D6E63"
+                    android:importantForAutofill="no" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/instructionsInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="@string/instructions"
+                android:minHeight="48dp"
+                android:inputType="text"
+                android:textColorHint="#8D6E63"
+                android:importantForAutofill="no" />
+
+            <LinearLayout
+                android:id="@+id/ingredientsLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/addMoreIngredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="addInputFields"
+                android:layout_gravity="end"
+                android:layout_marginEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/add_ingredient" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/vegetarianCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:text="@string/vegetarian"
+                    tools:ignore="MissingConstraints" />
+
+                <CheckBox
+                    android:id="@+id/veganCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:text="@string/vegan"
+                    tools:ignore="MissingConstraints" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/dairyFreeCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:text="@string/dairy_free"
+                    tools:ignore="MissingConstraints" />
+
+                <CheckBox
+                    android:id="@+id/glutenFreeCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:text="@string/gluten_free"
+                    tools:ignore="MissingConstraints" />
+
+                <CheckBox
+                    android:id="@+id/ketogenic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:text="@string/ketogenic"
+                    tools:ignore="MissingConstraints" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <Button
+        android:id="@+id/doneButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

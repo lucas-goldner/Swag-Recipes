@@ -1,5 +1,6 @@
 package de.hdmstuttgart.swagrecipes.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,8 +22,13 @@ import de.hdmstuttgart.swagrecipes.ui.browse.BrowseRecipeViewModel
 import de.hdmstuttgart.swagrecipes.utils.Status
 import kotlinx.coroutines.launch
 
+
 class BrowseActivity : AppCompatActivity() {
-    var adapter: BrowseRecipeAdapter = BrowseRecipeAdapter(ArrayList())
+    private var adapter: BrowseRecipeAdapter = BrowseRecipeAdapter(ArrayList()) { recipe ->
+        openRecipeDetails(
+            recipe
+        )
+    }
     private lateinit var binding: ActivityBrowseBinding
     private val browseRecipeViewModel by viewModels<BrowseRecipeViewModel> {
         ViewModelProviderFactory(BrowseRecipeViewModel::class) {
@@ -50,7 +56,17 @@ class BrowseActivity : AppCompatActivity() {
                 (recyclerView.layoutManager as LinearLayoutManager).orientation
             )
         )
+        adapter.onItemClick = { recipe ->
+            openRecipeDetails(recipe)
+        }
         recyclerView.adapter = adapter
+    }
+
+    private fun openRecipeDetails(recipe: Recipe) {
+        val intent = Intent(this, RecipeDetailActivity::class.java)
+        intent.putExtra("recipe", recipe)
+        intent.putExtra("saveable", true)
+        startActivity(intent)
     }
 
     private fun setupObserver() {
@@ -68,9 +84,9 @@ class BrowseActivity : AppCompatActivity() {
                             binding.recyclerView.visibility = View.GONE
                         }
                         Status.ERROR -> {
-                            //Handle Error
+                            Log.e("API-CALL-ERROR", "Error while calling API due to:" + it.message)
                             binding.progressBar.visibility = View.GONE
-                            Toast.makeText(this@BrowseActivity, it.message, Toast.LENGTH_LONG)
+                            Toast.makeText(this@BrowseActivity, "A small issue occurred, sorry for the inconvenience", Toast.LENGTH_LONG)
                                 .show()
                         }
                     }
@@ -81,6 +97,6 @@ class BrowseActivity : AppCompatActivity() {
 
     private fun renderList(articleList: List<Recipe>) {
         adapter.addData(articleList)
-        adapter.notifyDataSetChanged()
+        adapter.notifyItemRangeChanged(0, articleList.size)
     }
 }

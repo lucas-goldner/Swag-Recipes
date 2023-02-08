@@ -16,6 +16,7 @@ import de.hdmstuttgart.swagrecipes.SwagRecipesApplication
 import de.hdmstuttgart.swagrecipes.ui.collection.CollectionViewModel
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import de.hdmstuttgart.swagrecipes.data.model.recipe.Recipe
 import de.hdmstuttgart.swagrecipes.databinding.ActivityCollectionBinding
 import de.hdmstuttgart.swagrecipes.providers.ViewModelProviderFactory
 import de.hdmstuttgart.swagrecipes.ui.collection.CollectionAdapter
@@ -23,7 +24,7 @@ import de.hdmstuttgart.swagrecipes.ui.collection.CollectionAdapter
 class CollectionActivity : AppCompatActivity() {
     private var contentHasLoaded = false
     private lateinit var binding: ActivityCollectionBinding
-    lateinit var adapter: CollectionAdapter
+    private lateinit var adapter: CollectionAdapter
     private val collectionViewModel by viewModels<CollectionViewModel> {
         ViewModelProviderFactory(CollectionViewModel::class) {
             CollectionViewModel(
@@ -36,11 +37,10 @@ class CollectionActivity : AppCompatActivity() {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_collection)
-        adapter = CollectionAdapter()
+        adapter = CollectionAdapter { recipe -> openRecipeDetails(recipe) }
         collectionViewModel.allRecipes.observe(this) { recipes ->
             recipes?.let { adapter.submitList(it) }
         }
-        // TODO: Load data before setup
         contentHasLoaded = true
         setupSplashScreen(splashScreen)
         binding = ActivityCollectionBinding.inflate(layoutInflater)
@@ -50,11 +50,11 @@ class CollectionActivity : AppCompatActivity() {
 
 
     private fun setupUI() {
-        val searchForMoreButton = binding.floatingActionButton
+        val searchForMoreButton = binding.floatingActionButtonBrowseRecipe
         searchForMoreButton.setOnClickListener {
             navigateToBrowseActivity()
         }
-        val recyclerView = binding.recyclerView
+        val recyclerView = binding.collectionRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(
             DividerItemDecoration(
@@ -63,6 +63,21 @@ class CollectionActivity : AppCompatActivity() {
             )
         )
         recyclerView.adapter = adapter
+        binding.floatingActionButtonAddRecipe.setOnClickListener {
+            navigateToAddNewRecipeActivity()
+        }
+    }
+
+    private fun openRecipeDetails(recipe: Recipe) {
+        val intent = Intent(this, RecipeDetailActivity::class.java)
+        intent.putExtra("recipe", recipe)
+        intent.putExtra("saveable", false)
+        startActivity(intent)
+    }
+
+    private fun navigateToAddNewRecipeActivity() {
+        val intent = Intent(this, AddNewRecipeActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToBrowseActivity() {

@@ -42,14 +42,9 @@ data class RecipeResponse(
         glutenFree = this.glutenFree,
         dairyFree = this.dairyFree,
         veryHealthy = this.veryHealthy,
-        cheap = this.cheap,
         veryPopular = this.veryPopular,
-        sustainable = this.sustainable,
-        weightWatcherSmartPoints = this.weightWatcherSmartPoints,
-        gaps = this.gaps,
-        lowFodmap = this.lowFodmap,
+        cheap = this.cheap,
         ketogenic = this.ketogenic,
-        whole30 = this.whole30,
         servings = this.servings
     )
 }

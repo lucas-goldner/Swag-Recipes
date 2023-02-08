@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/input_fields_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <EditText
+            android:id="@+id/ingredientInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:hint="@string/ingredient_name"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColorHint="#8D6E63"
+            android:importantForAutofill="no" />
+
+        <EditText
+            android:id="@+id/ingredientAmountInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_weight="0.25"
+            android:hint="@string/amount"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColorHint="#8D6E63"
+            android:importantForAutofill="no" />
+
+        <EditText
+            android:id="@+id/ingredientUnitInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:hint="@string/unit"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColorHint="#8D6E63"
+            android:importantForAutofill="no" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
