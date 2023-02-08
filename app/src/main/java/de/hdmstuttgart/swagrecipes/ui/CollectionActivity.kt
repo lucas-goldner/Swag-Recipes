@@ -71,6 +71,7 @@ class CollectionActivity : AppCompatActivity() {
     private fun openRecipeDetails(recipe: Recipe) {
         val intent = Intent(this, RecipeDetailActivity::class.java)
         intent.putExtra("recipe", recipe)
+        intent.putExtra("saveable", false)
         startActivity(intent)
     }
 

@@ -1,18 +1,31 @@
 package de.hdmstuttgart.swagrecipes.ui
 
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import de.hdmstuttgart.swagrecipes.R
+import de.hdmstuttgart.swagrecipes.SwagRecipesApplication
 import de.hdmstuttgart.swagrecipes.data.model.recipe.Recipe
 import de.hdmstuttgart.swagrecipes.databinding.ActivityRecipeDetailBinding
+import de.hdmstuttgart.swagrecipes.providers.ViewModelProviderFactory
+import de.hdmstuttgart.swagrecipes.ui.addnew.AddNewRecipeViewModel
 import de.hdmstuttgart.swagrecipes.ui.detail.RecipeDetailAdapter
+import de.hdmstuttgart.swagrecipes.ui.detail.RecipeDetailViewModel
 
 class RecipeDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRecipeDetailBinding
+    private val recipeDetailViewModel by viewModels<RecipeDetailViewModel> {
+        ViewModelProviderFactory(RecipeDetailViewModel::class) {
+            RecipeDetailViewModel(
+                (application as SwagRecipesApplication).savedRecipesRepository
+            )
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +35,7 @@ class RecipeDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val recipe = loadRecipeFromIntent()
+        val saveable = loadIfSaveableFromIntent()
 
         if (recipe != null) {
 
@@ -63,11 +77,23 @@ class RecipeDetailActivity : AppCompatActivity() {
             binding.glutenFreeCheckbox.isChecked = recipe.glutenFree
             binding.dairyFreeCheckbox.isChecked = recipe.dairyFree
             binding.ketogenic.isChecked = recipe.ketogenic
+
+            // Savebutton
+            if (saveable == true) binding.saveRecipeButton.visibility = View.VISIBLE
+            binding.saveRecipeButton.setOnClickListener {
+                recipeDetailViewModel.insert(recipe)
+                finish()
+            }
         }
     }
 
     private fun loadRecipeFromIntent(): Recipe? {
         val browseIntent = intent
         return browseIntent.getParcelableExtra("recipe")
+    }
+
+    private fun loadIfSaveableFromIntent(): Boolean? {
+        val browseIntent = intent
+        return browseIntent.getBooleanExtra("saveable", false)
     }
 }

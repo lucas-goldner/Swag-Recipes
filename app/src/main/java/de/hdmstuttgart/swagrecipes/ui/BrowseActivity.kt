@@ -65,6 +65,7 @@ class BrowseActivity : AppCompatActivity() {
     private fun openRecipeDetails(recipe: Recipe) {
         val intent = Intent(this, RecipeDetailActivity::class.java)
         intent.putExtra("recipe", recipe)
+        intent.putExtra("saveable", true)
         startActivity(intent)
     }
 

@@ -187,6 +187,18 @@
                 android:text="@string/ketogenic" />
 
 
+            <Button
+                android:id="@+id/saveRecipeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/save_recipe"
+                android:visibility="gone" />
+
 
         </LinearLayout>
 

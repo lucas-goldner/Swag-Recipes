@@ -3,11 +3,14 @@ package de.hdmstuttgart.swagrecipes.ui.collection
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import de.hdmstuttgart.swagrecipes.R
+import de.hdmstuttgart.swagrecipes.data.model.ingredient.Ingredient
 import de.hdmstuttgart.swagrecipes.data.model.recipe.Recipe
 
 class CollectionAdapter(  var onItemClick: ((Recipe) -> Unit)) :
@@ -19,17 +22,26 @@ class CollectionAdapter(  var onItemClick: ((Recipe) -> Unit)) :
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.title)
+        holder.bind(current.title, current.ingredients, current.readyInMinutes)
         holder.itemView.setOnClickListener {
             onItemClick(current)
         }
+        Glide.with(holder.itemView.context)
+            .load(current.imageURL)
+            .placeholder(R.drawable.placeholder)
+            .into(holder.imageView)
     }
 
     class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val wordItemView: TextView = itemView.findViewById(R.id.title)
+        private val titleView: TextView = itemView.findViewById(R.id.title)
+        private val ingredientsView: TextView = itemView.findViewById(R.id.ingredients)
+        private val readyInMinutesView: TextView = itemView.findViewById(R.id.readyInMinutes)
+        val imageView: ImageView = itemView.findViewById(R.id.image)
 
-        fun bind(text: String?) {
-            wordItemView.text = text
+        fun bind(title: String?, ingredients: List<Ingredient>, readyInMinutes: Int) {
+            titleView.text = title
+            ingredientsView.text = ingredients.joinToString(separator = ", ") { it.name }
+            readyInMinutesView.text = "Prep time: " + readyInMinutes.toString() + " min"
         }
 
         companion object {
