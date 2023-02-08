@@ -1,5 +1,6 @@
 package de.hdmstuttgart.swagrecipes.ui.collection
 
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +42,7 @@ class CollectionAdapter(  var onItemClick: ((Recipe) -> Unit)) :
         fun bind(title: String?, ingredients: List<Ingredient>, readyInMinutes: Int) {
             titleView.text = title
             ingredientsView.text = ingredients.joinToString(separator = ", ") { it.name }
-            readyInMinutesView.text = "Prep time: " + readyInMinutes.toString() + " min"
+            readyInMinutesView.text = titleView.context.getString(R.string.prep_with_placeholder, readyInMinutes)
         }
 
         companion object {

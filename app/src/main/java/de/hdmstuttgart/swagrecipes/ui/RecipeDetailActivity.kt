@@ -1,6 +1,5 @@
 package de.hdmstuttgart.swagrecipes.ui
 
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,7 +11,6 @@ import de.hdmstuttgart.swagrecipes.SwagRecipesApplication
 import de.hdmstuttgart.swagrecipes.data.model.recipe.Recipe
 import de.hdmstuttgart.swagrecipes.databinding.ActivityRecipeDetailBinding
 import de.hdmstuttgart.swagrecipes.providers.ViewModelProviderFactory
-import de.hdmstuttgart.swagrecipes.ui.addnew.AddNewRecipeViewModel
 import de.hdmstuttgart.swagrecipes.ui.detail.RecipeDetailAdapter
 import de.hdmstuttgart.swagrecipes.ui.detail.RecipeDetailViewModel
 
@@ -59,8 +57,8 @@ class RecipeDetailActivity : AppCompatActivity() {
                 .placeholder(R.drawable.placeholder)
                 .into(binding.image)
             // Meal Servings and Preparation time
-            binding.mealTime.text = "Ready in " + recipe.readyInMinutes + " minutes"
-            binding.mealServings.text = recipe.servings.toString() + " servings"
+            binding.mealTime.text = getString(R.string.ready_in_minutes_with_placeholder, recipe.readyInMinutes)
+            binding.mealServings.text = getString(R.string.servings_with_placeholder, recipe.servings)
 
             // Meal Instructions
             binding.mealInstructions.text = recipe.instructions.replace(Regex("<[^>]*>"), "")
@@ -78,7 +76,7 @@ class RecipeDetailActivity : AppCompatActivity() {
             binding.dairyFreeCheckbox.isChecked = recipe.dairyFree
             binding.ketogenic.isChecked = recipe.ketogenic
 
-            // Savebutton
+            // Save button
             if (saveable == true) binding.saveRecipeButton.visibility = View.VISIBLE
             binding.saveRecipeButton.setOnClickListener {
                 recipeDetailViewModel.insert(recipe)
@@ -92,7 +90,7 @@ class RecipeDetailActivity : AppCompatActivity() {
         return browseIntent.getParcelableExtra("recipe")
     }
 
-    private fun loadIfSaveableFromIntent(): Boolean? {
+    private fun loadIfSaveableFromIntent(): Boolean {
         val browseIntent = intent
         return browseIntent.getBooleanExtra("saveable", false)
     }

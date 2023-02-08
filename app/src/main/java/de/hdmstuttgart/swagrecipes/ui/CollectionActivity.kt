@@ -24,7 +24,7 @@ import de.hdmstuttgart.swagrecipes.ui.collection.CollectionAdapter
 class CollectionActivity : AppCompatActivity() {
     private var contentHasLoaded = false
     private lateinit var binding: ActivityCollectionBinding
-    lateinit var adapter: CollectionAdapter
+    private lateinit var adapter: CollectionAdapter
     private val collectionViewModel by viewModels<CollectionViewModel> {
         ViewModelProviderFactory(CollectionViewModel::class) {
             CollectionViewModel(
@@ -54,7 +54,7 @@ class CollectionActivity : AppCompatActivity() {
         searchForMoreButton.setOnClickListener {
             navigateToBrowseActivity()
         }
-        val recyclerView = binding.recyclerView
+        val recyclerView = binding.collectionRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(
             DividerItemDecoration(

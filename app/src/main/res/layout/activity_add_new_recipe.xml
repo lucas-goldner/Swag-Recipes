@@ -24,7 +24,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/titleInput"
+                    android:id="@+id/mealNameInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -168,7 +168,6 @@
                     android:text="@string/ketogenic"
                     tools:ignore="MissingConstraints" />
             </LinearLayout>
-
 
         </LinearLayout>
     </ScrollView>

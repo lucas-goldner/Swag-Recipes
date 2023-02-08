@@ -31,4 +31,8 @@
     <string name="ingredient_name">Ingredient Name</string>
     <string name="add_new_recipe">Add New Recipe</string>
     <string name="save_recipe">Save Recipe</string>
+    <string name="load_image">Load Image</string>
+    <string name="ready_in_minutes_with_placeholder">Ready in: %d minutes</string>
+    <string name="servings_with_placeholder">%d servings</string>
+    <string name="prep_with_placeholder">Prep time: %d min</string>
 </resources>

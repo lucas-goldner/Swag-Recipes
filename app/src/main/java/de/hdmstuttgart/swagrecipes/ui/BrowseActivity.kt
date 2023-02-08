@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 
 
 class BrowseActivity : AppCompatActivity() {
-    var adapter: BrowseRecipeAdapter = BrowseRecipeAdapter(ArrayList()) { recipe ->
+    private var adapter: BrowseRecipeAdapter = BrowseRecipeAdapter(ArrayList()) { recipe ->
         openRecipeDetails(
             recipe
         )
@@ -78,7 +78,6 @@ class BrowseActivity : AppCompatActivity() {
                             binding.progressBar.visibility = View.GONE
                             it.data?.let { articleList -> renderList(articleList) }
                             binding.recyclerView.visibility = View.VISIBLE
-
                         }
                         Status.LOADING -> {
                             binding.progressBar.visibility = View.VISIBLE
@@ -98,6 +97,6 @@ class BrowseActivity : AppCompatActivity() {
 
     private fun renderList(articleList: List<Recipe>) {
         adapter.addData(articleList)
-        adapter.notifyDataSetChanged()
+        adapter.notifyItemRangeChanged(0, articleList.size)
     }
 }

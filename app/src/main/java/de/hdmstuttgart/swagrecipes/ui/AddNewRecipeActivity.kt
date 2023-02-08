@@ -1,9 +1,7 @@
 package de.hdmstuttgart.swagrecipes.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.EditText
@@ -16,21 +14,15 @@ import de.hdmstuttgart.swagrecipes.data.model.recipe.Recipe
 import de.hdmstuttgart.swagrecipes.databinding.ActivityAddNewRecipeBinding
 import de.hdmstuttgart.swagrecipes.providers.ViewModelProviderFactory
 import de.hdmstuttgart.swagrecipes.ui.addnew.AddNewRecipeViewModel
-import de.hdmstuttgart.swagrecipes.ui.collection.CollectionViewModel
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * This class implements the AddNewRecipe Activity which allows the user to create his
  * own Recipe by filling out all of the needed attributes to create a Recipe
  */
+
 class AddNewRecipeActivity : AppCompatActivity() {
-
-    // This List stores all of the User recipes
-    lateinit var userRecipes: ArrayList<Recipe>
-
     private lateinit var binding: ActivityAddNewRecipeBinding
-
     private val addNewRecipeViewModel by viewModels<AddNewRecipeViewModel> {
         ViewModelProviderFactory(AddNewRecipeViewModel::class) {
             AddNewRecipeViewModel(
@@ -59,7 +51,7 @@ class AddNewRecipeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Binding Input Fields/Checkboxes
-        titleInput = binding.titleInput
+        titleInput = binding.mealNameInput
         instructionsInput = binding.instructionsInput
         readyInMinutesInput = binding.readyInMinutesInput
         servingsInput = binding.servingsInput
@@ -183,7 +175,7 @@ class AddNewRecipeActivity : AppCompatActivity() {
             val ingredientAmountInput = linearLayout.getChildAt(1) as EditText
             val ingredientUnitInput = linearLayout.getChildAt(2) as EditText
 
-            var ingredient = Ingredient(ingredientInput.text.toString(),ingredientAmountInput.text.toString().toDouble(),ingredientUnitInput.text.toString())
+            val ingredient = Ingredient(ingredientInput.text.toString(),ingredientAmountInput.text.toString().toDouble(),ingredientUnitInput.text.toString())
             ingredientList.add(ingredient)
         }
         return ingredientList
