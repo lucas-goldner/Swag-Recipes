@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import de.hdmstuttgart.swagrecipes.data.model.ingredient.Ingredient
 import de.hdmstuttgart.swagrecipes.databinding.IngredientListViewBinding
 
-class RecipeDetailAdapter (
+class RecipeDetailAdapter(
     private val ingredientList: List<Ingredient>
 ) : RecyclerView.Adapter<RecipeDetailAdapter.DataViewHolder>() {
 
@@ -15,7 +15,8 @@ class RecipeDetailAdapter (
         RecyclerView.ViewHolder(binding.root) {
         fun bind(ingredient: Ingredient) {
             binding.title.text = ingredient.name
-            binding.amountAndUnit.text = "${if (ingredient.amount % 1 != 0.0) "%.2f".format(ingredient.amount) else ingredient.amount.toInt()} ${ingredient.unit}"
+            binding.amountAndUnit.text =
+                "${if (ingredient.amount % 1 != 0.0) "%.2f".format(ingredient.amount) else ingredient.amount.toInt()} ${ingredient.unit}"
         }
     }
 
@@ -32,5 +33,4 @@ class RecipeDetailAdapter (
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) =
         holder.bind(ingredientList[position])
-
 }

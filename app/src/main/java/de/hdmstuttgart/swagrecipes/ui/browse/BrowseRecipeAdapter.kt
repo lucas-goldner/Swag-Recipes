@@ -10,7 +10,7 @@ import de.hdmstuttgart.swagrecipes.databinding.RecipeListViewBinding
 
 class BrowseRecipeAdapter (
     private val recipeList: ArrayList<Recipe>,
-    var onItemClick: ((Recipe) -> Unit)? = null
+    var onItemClick: ((Recipe) -> Unit)
 ) : RecyclerView.Adapter<BrowseRecipeAdapter.DataViewHolder>() {
 
 
@@ -18,7 +18,7 @@ class BrowseRecipeAdapter (
         RecyclerView.ViewHolder(binding.root) {
         init{
             binding.root.setOnClickListener{
-                onItemClick?.invoke(recipeList[adapterPosition])
+                onItemClick(recipeList[adapterPosition])
             }
         }
         fun bind(recipe: Recipe) {

@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import de.hdmstuttgart.swagrecipes.R
 import de.hdmstuttgart.swagrecipes.data.model.recipe.Recipe
 
-class CollectionAdapter : ListAdapter<Recipe, CollectionAdapter.RecipeViewHolder>(RecipeComparator()) {
+class CollectionAdapter(  var onItemClick: ((Recipe) -> Unit)) :
+    ListAdapter<Recipe, CollectionAdapter.RecipeViewHolder>(RecipeComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         return RecipeViewHolder.create(parent)
@@ -19,6 +20,9 @@ class CollectionAdapter : ListAdapter<Recipe, CollectionAdapter.RecipeViewHolder
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val current = getItem(position)
         holder.bind(current.title)
+        holder.itemView.setOnClickListener {
+            onItemClick(current)
+        }
     }
 
     class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -32,6 +36,7 @@ class CollectionAdapter : ListAdapter<Recipe, CollectionAdapter.RecipeViewHolder
             fun create(parent: ViewGroup): RecipeViewHolder {
                 val view: View = LayoutInflater.from(parent.context)
                     .inflate(R.layout.recipe_list_view, parent, false)
+
                 return RecipeViewHolder(view)
             }
         }

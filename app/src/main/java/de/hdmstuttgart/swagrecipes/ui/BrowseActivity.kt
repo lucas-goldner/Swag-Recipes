@@ -22,8 +22,13 @@ import de.hdmstuttgart.swagrecipes.ui.browse.BrowseRecipeViewModel
 import de.hdmstuttgart.swagrecipes.utils.Status
 import kotlinx.coroutines.launch
 
+
 class BrowseActivity : AppCompatActivity() {
-    private var adapter: BrowseRecipeAdapter = BrowseRecipeAdapter(ArrayList())
+    var adapter: BrowseRecipeAdapter = BrowseRecipeAdapter(ArrayList()) { recipe ->
+        openRecipeDetails(
+            recipe
+        )
+    }
     private lateinit var binding: ActivityBrowseBinding
     private val browseRecipeViewModel by viewModels<BrowseRecipeViewModel> {
         ViewModelProviderFactory(BrowseRecipeViewModel::class) {

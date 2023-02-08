@@ -29,19 +29,20 @@ class RecipeDetailActivity : AppCompatActivity() {
             binding.mealName.text = recipe.title
 
             // Meal "Badges"
-            if(recipe.veryPopular){
+            if (recipe.veryPopular) {
                 binding.isPopular.visibility = View.VISIBLE
             }
-            if(recipe.veryHealthy){
+            if (recipe.veryHealthy) {
                 binding.isHealthy.visibility = View.VISIBLE
             }
-            if(recipe.cheap){
+            if (recipe.cheap) {
                 binding.isCheap.visibility = View.VISIBLE
             }
 
             // Meal Image
             Glide.with(this)
                 .load(recipe.imageURL)
+                .placeholder(R.drawable.placeholder)
                 .into(binding.image)
             // Meal Servings and Preparation time
             binding.mealTime.text = "Ready in " + recipe.readyInMinutes + " minutes"
@@ -52,7 +53,7 @@ class RecipeDetailActivity : AppCompatActivity() {
 
             // List of Ingredients
             val adapter = RecipeDetailAdapter(recipe.ingredients)
-            val recyclerView =  binding.mealIngredients
+            val recyclerView = binding.mealIngredients
             recyclerView.adapter = adapter
             recyclerView.layoutManager = GridLayoutManager(this, 3)
 

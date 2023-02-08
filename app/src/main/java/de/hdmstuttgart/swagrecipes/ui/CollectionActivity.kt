@@ -16,6 +16,7 @@ import de.hdmstuttgart.swagrecipes.SwagRecipesApplication
 import de.hdmstuttgart.swagrecipes.ui.collection.CollectionViewModel
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import de.hdmstuttgart.swagrecipes.data.model.recipe.Recipe
 import de.hdmstuttgart.swagrecipes.databinding.ActivityCollectionBinding
 import de.hdmstuttgart.swagrecipes.providers.ViewModelProviderFactory
 import de.hdmstuttgart.swagrecipes.ui.collection.CollectionAdapter
@@ -36,7 +37,7 @@ class CollectionActivity : AppCompatActivity() {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_collection)
-        adapter = CollectionAdapter()
+        adapter = CollectionAdapter { recipe -> openRecipeDetails(recipe) }
         collectionViewModel.allRecipes.observe(this) { recipes ->
             recipes?.let { adapter.submitList(it) }
         }
@@ -65,6 +66,12 @@ class CollectionActivity : AppCompatActivity() {
         binding.floatingActionButtonAddRecipe.setOnClickListener {
             navigateToAddNewRecipeActivity()
         }
+    }
+
+    private fun openRecipeDetails(recipe: Recipe) {
+        val intent = Intent(this, RecipeDetailActivity::class.java)
+        intent.putExtra("recipe", recipe)
+        startActivity(intent)
     }
 
     private fun navigateToAddNewRecipeActivity() {
